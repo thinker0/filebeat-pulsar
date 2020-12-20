@@ -1,0 +1,5 @@
+/filebeat
+*.tgz
+*.log
+*.json
+/logs/
