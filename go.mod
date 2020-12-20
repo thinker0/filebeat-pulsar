@@ -1,12 +1,17 @@
-module github.com/thinker0/v2
+module github.com/thinker0/v2/filebeat-pulsar
 
 go 1.15
 
 require (
 	github.com/apache/pulsar-client-go v0.3.0
 	github.com/elastic/beats/v7 v7.10.1
+	github.com/prometheus/client_golang v1.7.1
+	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.6.1
-	k8s.io/client-go v0.19.4 // indirect
+	github.com/urfave/negroni v1.0.0
+	go.uber.org/automaxprocs v1.3.0
+	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7
+	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 )
 
 replace (

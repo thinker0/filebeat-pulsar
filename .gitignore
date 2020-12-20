@@ -1,5 +1,5 @@
 /filebeat
-*.tgz
+*.tar.gz
 *.log
 *.json
 /logs/
