@@ -30,7 +30,7 @@ const (
 	logSelector = "pulsar"
 )
 
-func init() {
+func Init() {
 	outputs.RegisterType("pulsar", makePulsar)
 }
 

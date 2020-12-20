@@ -21,10 +21,12 @@ package main
 
 import (
     "github.com/elastic/beats/v7/x-pack/filebeat/cmd"
+    "github.com/thinker0/v2/pkg/pulsar"
     "os"
 )
 
 func main() {
+    pulsar.Init()
     if err := cmd.Filebeat().Execute(); err != nil {
         os.Exit(1)
     }
