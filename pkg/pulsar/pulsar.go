@@ -47,7 +47,7 @@ func makePulsar(
 		return outputs.Fail(err)
 	}
 
-	log.Info("init config %v", config)
+	log.Infof("init config %v", config)
 	clientOptions, producerOptions, err := initOptions(&config)
 	client, err := newPulsarClient(beat, observer, clientOptions, producerOptions, &config)
 	if err != nil {

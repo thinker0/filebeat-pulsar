@@ -67,19 +67,19 @@ func (c *client) Connect() error {
 	c.pulsarClient, err = pulsar.NewClient(c.clientOptions)
 	c.log.Info("start create pulsar client")
 	if err != nil {
-		c.log.Debug("pulsar", "Create pulsar client failed: %v", err)
+		c.log.Debugf("pulsar", "Create pulsar client failed: %v", err)
 		return err
 	}
 	c.log.Info("start create pulsar producer")
 	c.producer, err = c.pulsarClient.CreateProducer(c.producerOptions)
 	if err != nil {
-		c.log.Debug("pulsar", "Create pulsar producer failed: %v", err)
+		c.log.Debugf("pulsar", "Create pulsar producer failed: %v", err)
 		return err
 	}
 	c.log.Info("start create encoder")
 	c.codec, err = codec.CreateEncoder(c.beat, c.config.Codec)
 	if err != nil {
-		c.log.Debug("pulsar", "Create encoder failed: %v", err)
+		c.log.Debugf("pulsar", "Create encoder failed: %v", err)
 		return err
 	}
 
@@ -95,33 +95,34 @@ func (c *client) Publish(ctx context.Context, batch publisher.Batch) error {
 	defer batch.ACK()
 	events := batch.Events()
 	c.observer.NewBatch(len(events))
-	c.log.Debug("pulsar", "Pulsar received events: %d", len(events))
+	c.log.Debugf("Pulsar received events: %d", len(events))
 	for i := range events {
 		event := &events[i]
 		serializedEvent, err := c.codec.Encode(c.beat.Beat, &event.Content)
 		if err != nil {
 			c.observer.Dropped(1)
-			c.log.Error("Failed event: %v, error: %v", event, err)
+			c.log.Errorf("Failed event: %v, error: %v", event, err)
 			continue
 		}
-
-		c.log.Debug("pulsar", "Pulsar success encode events: %d", i)
+		buf := make([]byte, len(serializedEvent))
+		copy(buf, serializedEvent)
+		c.log.Debugf("Pulsar success encode events: %d", i)
 		pTime := time.Now()
 		c.producer.SendAsync(ctx, &pulsar.ProducerMessage{
 			EventTime: pTime,
 			Key:       fmt.Sprintf("%d", pTime.Nanosecond()),
-			Payload:   serializedEvent,
+			Payload:   buf,
 		}, func(msgId pulsar.MessageID, prodMsg *pulsar.ProducerMessage, err error) {
 			if err != nil {
 				c.observer.Dropped(1)
-				c.log.Error("produce send failed: %v", err)
+				c.log.Errorf("produce send failed: %v", err)
 			} else {
-				c.log.Debug("pulsar", "Pulsar success send events: %d and messageID: %s ", i, msgId)
+				c.log.Debugf("Pulsar success send events: messageID: %s ", msgId)
 				c.observer.Acked(1)
 			}
 		})
 	}
-	c.log.Debug("pulsar", "Pulsar success send events: %d", len(events))
+	c.log.Debugf("Pulsar success send events: %d", len(events))
 	return nil
 }
 

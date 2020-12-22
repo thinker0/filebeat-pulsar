@@ -55,7 +55,7 @@ type pulsarConfig struct {
 	BlockIfQueueFull                   bool                    `config:"block_if_queue_full"`
 	HashingScheme                      pulsar.HashingScheme    `config:"hashing_schema"`
 	CompressionType                    pulsar.CompressionType  `config:"compression_type"`
-	CompressionLevel                   pulsar.CompressionLevel `config:"compression_type"`
+	CompressionLevel                   pulsar.CompressionLevel `config:"compression_level"`
 	Batching                           bool                    `config:"batching"`
 	BatchingMaxPublishDelay            time.Duration           `config:"batching_max_publish_delay"`
 	BatchingMaxMessages                uint                    `config:"batching_max_messages"`
@@ -66,10 +66,10 @@ func defaultConfig() pulsarConfig {
 		URL:              "pulsar://localhost:6650",
 		IOThreads:        5,
 		Topic:            "my_topic",
-		BulkMaxSize:      2048,
+		BulkMaxSize:      32768,
 		MaxRetries:       3,
-		CompressionType:  pulsar.ZSTD,
-		CompressionLevel: pulsar.Faster,
+		CompressionType:  2,
+		CompressionLevel: 1,
 	}
 }
 
@@ -139,8 +139,6 @@ func initOptions(
 	// }
 	producerOptions := pulsar.ProducerOptions{
 		Topic:            config.Topic,
-		CompressionType:  pulsar.ZSTD,
-		CompressionLevel: pulsar.Faster,
 	}
 	if len(config.Name) > 0 {
 		producerOptions.Name = config.Name
