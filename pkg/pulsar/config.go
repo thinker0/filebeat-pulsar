@@ -96,6 +96,9 @@ func (c *pulsarConfig) Validate() error {
 	if c.CompressionType < 0 {
 		return errors.New("compression_type is incorrect")
 	}
+	if c.CompressionLevel < 0 {
+		return errors.New("compression_level is incorrect")
+	}
 	return nil
 }
 
@@ -167,6 +170,9 @@ func initOptions(
 	}
 	if config.CompressionType > 0 {
 		producerOptions.CompressionType = config.CompressionType
+	}
+	if config.CompressionLevel > 0 {
+		producerOptions.CompressionLevel = config.CompressionLevel
 	}
 	// The producer has not added these options yet.
 	// if config.Batching {
