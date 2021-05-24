@@ -3,16 +3,18 @@ module github.com/thinker0/v2/filebeat-pulsar
 go 1.16
 
 require (
-	github.com/apache/pulsar-client-go v0.4.0
+	github.com/apache/pulsar-client-go v0.5.0
 	github.com/elastic/beats/v7 v7.10.2
+	github.com/golang/snappy v0.0.3 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/procfs v0.3.0 // indirect
-	github.com/sirupsen/logrus v1.6.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.6.1
 	github.com/urfave/negroni v1.0.0
 	go.uber.org/automaxprocs v1.3.0
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
+	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
