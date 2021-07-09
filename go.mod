@@ -4,23 +4,26 @@ go 1.16
 
 require (
 	github.com/apache/pulsar-client-go v0.5.0
-	github.com/elastic/beats/v7 v7.10.2
+	github.com/elastic/beats/v7 v7.13.3
+	github.com/elastic/go-lumber v0.1.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/procfs v0.3.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	github.com/urfave/negroni v1.0.0
 	go.uber.org/automaxprocs v1.3.0
-	golang.org/x/net v0.0.0-20200625001655-4c5254603344
+	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
+	google.golang.org/grpc v1.29.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
 replace (
+	// needed because elastic wants these replacements, and https://github.com/golang/go/issues/30354#issuecomment-466479708
 	github.com/Microsoft/go-winio => github.com/bi-zone/go-winio v0.4.15
-	github.com/Shopify/sarama => github.com/elastic/sarama v1.19.1-0.20200629123429-0e7b69039eec
+	github.com/Shopify/sarama => github.com/elastic/sarama v1.19.1-0.20210120173147-5c8cb347d877
 	github.com/cucumber/godog => github.com/cucumber/godog v0.8.1
 	github.com/docker/docker => github.com/docker/engine v0.0.0-20191113042239-ea84732a7725
 	github.com/docker/go-plugins-helpers => github.com/elastic/go-plugins-helpers v0.0.0-20200207104224-bdf17607b79f

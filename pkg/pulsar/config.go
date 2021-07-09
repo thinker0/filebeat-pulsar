@@ -24,7 +24,9 @@ import (
 	"time"
 
 	"github.com/apache/pulsar-client-go/pulsar"
+	"github.com/apache/pulsar-client-go/pulsar/log"
 	"github.com/elastic/beats/v7/libbeat/outputs/codec"
+	LOG "github.com/sirupsen/logrus"
 )
 
 type pulsarConfig struct {
@@ -36,6 +38,8 @@ type pulsarConfig struct {
 	UseTLS                     bool          `config:"use_tls"`
 	TLSTrustCertsFilePath      string        `config:"tls_trust_certs_file_path"`
 	TLSAllowInsecureConnection bool          `config:"tls_allow_insecure_connection"`
+	MaxConnectionsPerBroker    int           `config:"max_connection_per_broker"`
+	LogLevel                   string        `config:"log_level"`
 	CertificatePath            string        `config:"certificate_path"`
 	PrivateKeyPath             string        `config:"private_key_path"`
 	StatsIntervalInSeconds     int           `config:"stats_interval_in_seconds"`
@@ -90,22 +94,29 @@ func (c *pulsarConfig) Validate() error {
 			}
 		}
 	}
+	if len(c.LogLevel) > 0 {
+		_, err := LOG.ParseLevel(c.LogLevel)
+		if err != nil {
+			return errors.New("Log level is incorrect, supported log level: panic, fatal, error, warn, info, debug, trace")
+		}
+	}
 	if c.BulkMaxSize < 0 {
 		return errors.New("bulk max size is incorrect")
 	}
 	if c.CompressionType < 0 {
 		return errors.New("compression_type is incorrect")
 	}
-	if c.CompressionLevel < 0 {
-		return errors.New("compression_level is incorrect")
-	}
 	return nil
 }
 
 func initOptions(
 	config *pulsarConfig,
-) (pulsar.ClientOptions, pulsar.ProducerOptions, error) {
-	config.Validate()
+) (*pulsar.ClientOptions, *pulsar.ProducerOptions, error) {
+	err := config.Validate()
+	if err != nil {
+		LOG.Errorf("ConfigValidate Error: %v", config)
+		return nil, nil, err
+	}
 	clientOptions := pulsar.ClientOptions{
 		URL: config.URL,
 	}
@@ -120,6 +131,14 @@ func initOptions(
 	}
 	if len(config.TokenFilePath) > 0 {
 		clientOptions.Authentication = pulsar.NewAuthenticationTokenFromFile(config.TokenFilePath)
+	}
+	var logger log.Logger
+	standardLogger := LOG.StandardLogger()
+	if len(config.LogLevel) > 0 {
+		level, _ := LOG.ParseLevel(config.LogLevel)
+		standardLogger.SetLevel(level)
+		logger = log.NewLoggerWithLogrus(standardLogger)
+		clientOptions.Logger = logger
 	}
 	// The client has not added these options yet.
 	// if config.IOThreads > 0 {
@@ -141,7 +160,7 @@ func initOptions(
 	// 	clientOptions.StatsIntervalInSeconds = config.StatsIntervalInSeconds
 	// }
 	producerOptions := pulsar.ProducerOptions{
-		Topic:            config.Topic,
+		Topic: config.Topic,
 	}
 	if len(config.Name) > 0 {
 		producerOptions.Name = config.Name
@@ -184,5 +203,5 @@ func initOptions(
 	if config.BatchingMaxMessages > 0 {
 		producerOptions.BatchingMaxMessages = config.BatchingMaxMessages
 	}
-	return clientOptions, producerOptions, nil
+	return &clientOptions, &producerOptions, nil
 }

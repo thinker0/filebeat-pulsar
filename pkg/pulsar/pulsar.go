@@ -22,8 +22,8 @@ package pulsar
 import (
 	"github.com/elastic/beats/v7/libbeat/beat"
 	"github.com/elastic/beats/v7/libbeat/common"
-	"github.com/elastic/beats/v7/libbeat/logp"
 	"github.com/elastic/beats/v7/libbeat/outputs"
+	LOG "github.com/sirupsen/logrus"
 )
 
 const (
@@ -40,16 +40,18 @@ func makePulsar(
 	observer outputs.Observer,
 	cfg *common.Config,
 ) (outputs.Group, error) {
-	log := logp.NewLogger(logSelector)
 	config := defaultConfig()
-	log.Info("initialize pulsar output")
+	LOG.Info("initialize pulsar output")
 	if err := cfg.Unpack(&config); err != nil {
 		return outputs.Fail(err)
 	}
 
-	log.Infof("init config %v", config)
+	LOG.Infof("init config %v", config)
 	clientOptions, producerOptions, err := initOptions(&config)
-	client, err := newPulsarClient(beat, observer, clientOptions, producerOptions, &config)
+	if err != nil {
+		return outputs.Fail(err)
+	}
+	client, err := newPulsarClient(beat, observer, *clientOptions, *producerOptions, &config)
 	if err != nil {
 		return outputs.Fail(err)
 	}
