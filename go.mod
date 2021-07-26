@@ -3,8 +3,8 @@ module github.com/thinker0/v2/filebeat-pulsar
 go 1.16
 
 require (
-	github.com/apache/pulsar-client-go v0.5.0
-	github.com/elastic/beats/v7 v7.13.3
+	github.com/apache/pulsar-client-go v0.6.0
+	github.com/elastic/beats/v7 v7.13.4
 	github.com/elastic/go-lumber v0.1.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
 	github.com/prometheus/client_golang v1.9.0
