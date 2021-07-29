@@ -3,16 +3,19 @@ module github.com/thinker0/v2/filebeat-pulsar
 go 1.16
 
 require (
+	github.com/DataDog/zstd v1.4.8 // indirect
 	github.com/apache/pulsar-client-go v0.6.0
+	github.com/dgraph-io/badger/v2 v2.2007.3 // indirect
 	github.com/elastic/beats/v7 v7.13.4
 	github.com/elastic/go-lumber v0.1.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/prometheus/procfs v0.3.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/negroni v1.0.0
-	go.uber.org/automaxprocs v1.3.0
+	go.uber.org/automaxprocs v1.4.0
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
@@ -21,6 +24,7 @@ require (
 )
 
 replace (
+	github.com/DataDog/zstd => github.com/datadog/zstd v1.4.8
 	// needed because elastic wants these replacements, and https://github.com/golang/go/issues/30354#issuecomment-466479708
 	github.com/Microsoft/go-winio => github.com/bi-zone/go-winio v0.4.15
 	github.com/Shopify/sarama => github.com/elastic/sarama v1.19.1-0.20210120173147-5c8cb347d877
