@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.8 // indirect
-	github.com/apache/pulsar-client-go v0.6.0
+	github.com/apache/pulsar-client-go v0.6.1-0.20210811194833-887853e5c8f7
 	github.com/dgraph-io/badger/v2 v2.2007.3 // indirect
 	github.com/elastic/beats/v7 v7.13.4
 	github.com/elastic/go-lumber v0.1.0 // indirect
