@@ -93,9 +93,9 @@ func testPulsarPublishMessage(t *testing.T, cfg map[string]interface{}) {
 				"topic":                     "my-topic1",
 				"name":                      "test",
 				"use_tls":                   true,
-				"tls_trust_certs_file_path": "./pulsar-filebeat/certs/ca.cert.pem",
-				"certificate_path":          "./pulsar-filebeat/role/admin.cert.pem",
-				"private_key_path":          "./pulsar-filebeat/role/admin.key-pk8.pem",
+				"tls_trust_certs_file_path": "../../certs/ca.cert.pem",
+				"certificate_path":          "../../certs/admin.cert.pem",
+				"private_key_path":          "../../certs/admin.key-pk8.pem",
 			},
 			"my-topic1",
 			single(common.MapStr{

@@ -61,7 +61,7 @@ func Test_pulsarConfig_Validate(t *testing.T) {
 			fields{
 				"pulsar://localhost:6650",
 				true,
-				"./pulsar-filebeat/certs/ca.cert.pem",
+				"../../certs/ca.cert.pem",
 				"persistent://public/default/my-topic1",
 			},
 			false,
