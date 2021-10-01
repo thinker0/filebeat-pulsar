@@ -116,6 +116,12 @@ func (c *client) Publish(ctx context.Context, batch publisher.Batch) error {
 			if err != nil {
 				c.observer.Dropped(1)
 				c.log.Errorf("produce send failed: %v", err)
+				c.Close()
+				err := c.Connect()
+				if err != nil {
+					c.log.Errorf("Reconnect failed: %v", err)
+					return
+				}
 			} else {
 				c.log.Debugf("Pulsar success send events: messageID: %s ", msgId)
 				c.observer.Acked(1)
