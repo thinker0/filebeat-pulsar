@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.8 // indirect
-	github.com/apache/pulsar-client-go v0.6.1-0.20210818190554-bbffae2bfbdc
+	github.com/apache/pulsar-client-go v0.6.1-0.20210929094717-fafa8c37407b
 	github.com/dgraph-io/badger/v2 v2.2007.3 // indirect
 	github.com/elastic/beats/v7 v7.13.4
 	github.com/elastic/go-lumber v0.1.0 // indirect
@@ -21,6 +21,7 @@ require (
 	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
 replace (
