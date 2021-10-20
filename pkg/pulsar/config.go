@@ -119,6 +119,7 @@ func initOptions(
 	}
 	clientOptions := pulsar.ClientOptions{
 		URL: config.URL,
+		MetricsCardinality: pulsar.MetricsCardinalityTopic,
 	}
 	if config.UseTLS {
 		clientOptions.TLSTrustCertsFilePath = config.TLSTrustCertsFilePath

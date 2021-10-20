@@ -153,6 +153,8 @@ github.com/apache/pulsar-client-go v0.6.1-0.20210818190554-bbffae2bfbdc h1:Cnywc
 github.com/apache/pulsar-client-go v0.6.1-0.20210818190554-bbffae2bfbdc/go.mod h1:A1P5VjjljsFKAD13w7/jmU3Dly2gcRvcobiULqQXhz4=
 github.com/apache/pulsar-client-go v0.6.1-0.20210929094717-fafa8c37407b h1:yW4XNN2w15nIafRHIRhHFWgtxOBOhMWg3oGg4CrTPpg=
 github.com/apache/pulsar-client-go v0.6.1-0.20210929094717-fafa8c37407b/go.mod h1:nBHoZ613FRWNmjCcuWcYxQnegqY+eTgIN3VVC6RsR3I=
+github.com/apache/pulsar-client-go v0.6.1-0.20211014021255-01a924f51189 h1:LcnHDVF/60lpqpPzKAPk1Tog+YIwPJd+ywNtC0W/34I=
+github.com/apache/pulsar-client-go v0.6.1-0.20211014021255-01a924f51189/go.mod h1:EauTUv9sTmP9QRznRgK9hxnzCsIVfS8fyhTfGcuJBrE=
 github.com/apache/pulsar-client-go/oauth2 v0.0.0-20201120111947-b8bd55bc02bd h1:P5kM7jcXJ7TaftX0/EMKiSJgvQc/ct+Fw0KMvcH3WuY=
 github.com/apache/pulsar-client-go/oauth2 v0.0.0-20201120111947-b8bd55bc02bd/go.mod h1:0UtvvETGDdvXNDCHa8ZQpxl+w3HbdFtfYZvDHLgWGTY=
 github.com/apache/pulsar/pulsar-client-go v0.0.0-20201112070640-c198b614d5fa h1:nc8JWO6tZVLAhvvYT4Qi99kXB0eEOupEyVBrdm3uEfA=
