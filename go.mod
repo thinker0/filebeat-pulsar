@@ -4,22 +4,21 @@ go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.8 // indirect
-	github.com/apache/pulsar-client-go v0.6.1-0.20211014021255-01a924f51189
+	github.com/apache/pulsar-client-go v0.7.1-0.20211210071253-d0d5d0ae4037
 	github.com/dgraph-io/badger/v2 v2.2007.3 // indirect
 	github.com/elastic/beats/v7 v7.13.4
+	github.com/elastic/elastic-agent-client/v7 v7.0.0-20210308165121-7dd05ee2b5a5 // indirect
 	github.com/elastic/go-lumber v0.1.0 // indirect
+	github.com/go-kit/kit v0.10.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/prometheus/client_golang v1.9.0
-	github.com/prometheus/procfs v0.3.0 // indirect
+	github.com/prometheus/client_golang v1.11.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/negroni v1.0.0
 	go.uber.org/automaxprocs v1.4.0
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
-	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
-	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
-	google.golang.org/grpc v1.29.1 // indirect
+	golang.org/x/net v0.0.0-20210726213435-c6fcb2dbf985
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
