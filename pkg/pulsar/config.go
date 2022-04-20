@@ -72,8 +72,8 @@ func defaultConfig() pulsarConfig {
 		Topic:            "my_topic",
 		BulkMaxSize:      32768,
 		MaxRetries:       3,
-		CompressionType:  2,
-		CompressionLevel: 1,
+		CompressionType:  pulsar.ZSTD,
+		CompressionLevel: pulsar.Faster,
 	}
 }
 
@@ -118,7 +118,7 @@ func initOptions(
 		return nil, nil, err
 	}
 	clientOptions := pulsar.ClientOptions{
-		URL: config.URL,
+		URL:                config.URL,
 		MetricsCardinality: pulsar.MetricsCardinalityTopic,
 	}
 	if config.UseTLS {
