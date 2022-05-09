@@ -53,8 +53,9 @@ var (
 )
 
 func main() {
-    logger = log.New(os.Stderr, "http: ", log.LstdFlags)
-    done := make(chan bool)
+	logger = log.New(os.Stderr, "http: ", log.LstdFlags)
+	log.Println("Start Apps")
+	done := make(chan bool)
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
 	signal.Notify(quit, os.Kill)
@@ -112,26 +113,25 @@ func main() {
 		return adminServer.Serve(ln)
 	})
 
+	g.Go(func() error {
+		<-quit
+		LOG.Println("Server is shutting down...")
+		atomic.StoreInt32(&healthy, 0)
 
-    g.Go(func() error {
-        <-quit
-        LOG.Println("Server is shutting down...")
-        atomic.StoreInt32(&healthy, 0)
-
-        if adminServer != nil {
-            go func() {
-                adminServer.Close()
-                adminServer.Shutdown(context.Background())
-            }()
-        }
-        err := g.Wait()
-        if err != nil {
-            LOG.Errorf("server returning an error: %v", err)
-            os.Exit(2)
-        }
-        close(done)
-        return nil
-    })
+		if adminServer != nil {
+			go func() {
+				adminServer.Close()
+				adminServer.Shutdown(context.Background())
+			}()
+		}
+		err := g.Wait()
+		if err != nil {
+			LOG.Errorf("server returning an error: %v", err)
+			os.Exit(2)
+		}
+		close(done)
+		return nil
+	})
 
 	pulsar.Init()
 	if err := cmd.Filebeat().Execute(); err != nil {
