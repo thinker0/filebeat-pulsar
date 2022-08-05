@@ -22,6 +22,7 @@ package pulsar
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/apache/pulsar-client-go/pulsar"
@@ -42,6 +43,7 @@ type client struct {
 	beat            beat.Info
 	config          *pulsarConfig
 	codec           codec.Codec
+	mux             sync.Mutex
 }
 
 func newPulsarClient(
@@ -63,31 +65,49 @@ func newPulsarClient(
 }
 
 func (c *client) Connect() error {
-	var err error
-	c.pulsarClient, err = pulsar.NewClient(c.clientOptions)
-	c.log.Info("start create pulsar client")
-	if err != nil {
-		c.log.Debugf("pulsar", "Create pulsar client failed: %v", err)
-		return err
-	}
-	c.log.Info("start create pulsar producer")
-	c.producer, err = c.pulsarClient.CreateProducer(c.producerOptions)
-	if err != nil {
-		c.log.Debugf("pulsar", "Create pulsar producer failed: %v", err)
-		return err
-	}
-	c.log.Info("start create encoder")
-	c.codec, err = codec.CreateEncoder(c.beat, c.config.Codec)
-	if err != nil {
-		c.log.Debugf("pulsar", "Create encoder failed: %v", err)
-		return err
-	}
+	c.mux.Lock()
+	defer c.mux.Unlock()
 
+	pulsarClient, err := pulsar.NewClient(c.clientOptions)
+	c.log.Infof("start create pulsar client: %s", c.clientOptions.URL)
+	if err != nil {
+		c.log.Errorf("Create pulsar client failed: %v", err)
+		return err
+	}
+	c.pulsarClient = pulsarClient
+	c.log.Info("start create pulsar producer")
+	producer, err := c.pulsarClient.CreateProducer(c.producerOptions)
+	if err != nil {
+		defer c.Close()
+		c.log.Errorf("Create pulsar producer failed: %v", err)
+		return err
+	}
+	c.producer = producer
+	c.log.Info("start create encoder")
+	codec, err := codec.CreateEncoder(c.beat, c.config.Codec)
+	if err != nil {
+		defer c.Close()
+		c.log.Errorf("Create encoder failed: %v", err)
+		return err
+	}
+	c.codec = codec
 	return nil
 }
 
 func (c *client) Close() error {
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	if c.producer == nil {
+		return nil
+	}
+	c.producer.Flush()
+	c.producer.Close()
+	c.producer = nil
+	if c.pulsarClient == nil {
+		return nil
+	}
 	c.pulsarClient.Close()
+	c.pulsarClient = nil
 	return nil
 }
 
@@ -116,12 +136,6 @@ func (c *client) Publish(ctx context.Context, batch publisher.Batch) error {
 			if err != nil {
 				c.observer.Dropped(1)
 				c.log.Errorf("produce send failed: %v", err)
-				c.Close()
-				err := c.Connect()
-				if err != nil {
-					c.log.Errorf("Reconnect failed: %v", err)
-					return
-				}
 			} else {
 				c.log.Debugf("Pulsar success send events: messageID: %s ", msgId)
 				c.observer.Acked(1)

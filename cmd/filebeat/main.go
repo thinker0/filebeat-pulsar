@@ -22,9 +22,13 @@ package main
 import (
 	"fmt"
 	"github.com/elastic/beats/v7/x-pack/filebeat/cmd"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/prometheus/common/version"
 	LOG "github.com/sirupsen/logrus"
+	"github.com/thinker0/v2/filebeat-pulsar/pkg/beat_collector"
 	"github.com/thinker0/v2/filebeat-pulsar/pkg/pulsar"
+	"github.com/trustpilot/beat-exporter/collector"
 	"github.com/urfave/negroni"
 	_ "go.uber.org/automaxprocs"
 	"golang.org/x/net/context"
@@ -57,8 +61,7 @@ func main() {
 	log.Println("Start Apps")
 	done := make(chan bool)
 	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
-	signal.Notify(quit, os.Kill)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL, syscall.SIGHUP)
 
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -84,10 +87,10 @@ func main() {
 			}
 		}
 		adminRouter := http.NewServeMux()
-		adminRouter.Handle("/health", Healthz(&healthy))
+		adminRouter.Handle("/health", health(&healthy))
 		adminRouter.Handle("/metrics", promhttp.Handler())
-		adminRouter.Handle("/quitquitquit", QuitQuitQuit(&healthy, shutdownFunc))
-		adminRouter.Handle("/abortabortabort", AbortAbortAbort(&healthy, shutdownFunc))
+		adminRouter.Handle("/quitquitquit", quitQuitQuit(&healthy, shutdownFunc))
+		adminRouter.Handle("/abortabortabort", abortAbortAbort(&healthy, shutdownFunc))
 		adminRouter.HandleFunc("/debug/pprof/", pprof.Index)
 		adminRouter.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
 		adminRouter.HandleFunc("/debug/pprof/profile", pprof.Profile)
@@ -130,10 +133,27 @@ func main() {
 			os.Exit(2)
 		}
 		close(done)
+		LOG.Println("Server is shutdown...")
 		return nil
 	})
 
 	pulsar.Init()
+	appName := ""
+	hostName, _ := os.Hostname()
+	beatInfo := collector.BeatInfo{
+		Beat:     appName,
+		Hostname: hostName,
+		Name:     GitTag,
+		UUID:     GitCommit,
+		Version:  Version,
+	}
+	LOG.Infof("Beatinfo: %s", beatInfo)
+	registry := prometheus.DefaultRegisterer
+	versionMetric := version.NewCollector(appName)
+	mainCollector := beat_collector.NewMainCollector(appName, &beatInfo)
+	registry.MustRegister(versionMetric)
+	registry.MustRegister(mainCollector)
+
 	if err := cmd.Filebeat().Execute(); err != nil {
 		os.Exit(1)
 	}
@@ -147,7 +167,7 @@ func main() {
 	log.Println("Server stopped")
 }
 
-func Healthz(healthy *int32) http.Handler {
+func health(healthy *int32) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if atomic.LoadInt32(healthy) == 1 {
 			w.WriteHeader(http.StatusOK)
@@ -158,13 +178,13 @@ func Healthz(healthy *int32) http.Handler {
 	})
 }
 
-func QuitQuitQuit(healthy *int32, shutdown func()) http.Handler {
+func quitQuitQuit(healthy *int32, shutdown func()) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "POST" {
 			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 			return
 		}
-		LOG.Info("Server is QuitQuitQuit...")
+		LOG.Info("Server is quitQuitQuit...")
 		atomic.StoreInt32(healthy, 0)
 		defer shutdown()
 		w.WriteHeader(http.StatusOK)
@@ -172,14 +192,14 @@ func QuitQuitQuit(healthy *int32, shutdown func()) http.Handler {
 	})
 }
 
-func AbortAbortAbort(healthy *int32, shutdown func()) http.Handler {
+func abortAbortAbort(healthy *int32, shutdown func()) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "POST" {
 			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 			return
 		}
 		defer shutdown()
-		LOG.Info("Server is AbortAbortAbort...")
+		LOG.Info("Server is abortAbortAbort...")
 		atomic.StoreInt32(healthy, 0)
 		w.WriteHeader(http.StatusOK)
 		_, _ = fmt.Fprintln(w, "ok")
