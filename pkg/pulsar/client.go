@@ -143,10 +143,9 @@ func (c *client) Publish(ctx context.Context, batch publisher.Batch) error {
 		c.log.Debugf("Pulsar success encode events: %d", i)
 		pTime := time.Now()
 		c.producer.SendAsync(ctx, &pulsar.ProducerMessage{
-			EventTime:    pTime,
-			Payload:      buf,
-			Key:          fmt.Sprintf("%d", pTime.Nanosecond()),
-			DeliverAfter: 50 * time.Millisecond,
+			EventTime: pTime,
+			Payload:   buf,
+			Key:       fmt.Sprintf("%d", pTime.Nanosecond()),
 		}, func(msgId pulsar.MessageID, prodMsg *pulsar.ProducerMessage, err error) {
 			if err != nil {
 				c.observer.Dropped(1)
