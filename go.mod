@@ -1,6 +1,6 @@
 module github.com/thinker0/v2/filebeat-pulsar
 
-go 1.23.0
+go 1.23
 
 require (
 	github.com/apache/pulsar-client-go v0.8.1-0.20220623212449-0f7041ffa908
