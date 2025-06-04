@@ -81,8 +81,8 @@ func main() {
 			defer cancel()
 			if adminServer != nil {
 				go func() {
-					adminServer.Close()
-					adminServer.Shutdown(context.Background())
+					_ = adminServer.Close()
+					_ = adminServer.Shutdown(context.Background())
 				}()
 			}
 		}
@@ -123,8 +123,8 @@ func main() {
 
 		if adminServer != nil {
 			go func() {
-				adminServer.Close()
-				adminServer.Shutdown(context.Background())
+				_ = adminServer.Close()
+				_ = adminServer.Shutdown(context.Background())
 			}()
 		}
 		err := g.Wait()

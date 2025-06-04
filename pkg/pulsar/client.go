@@ -77,19 +77,33 @@ func (c *client) Connect() error {
 	c.log.Info("start create pulsar producer")
 	producer, err := c.pulsarClient.CreateProducer(c.producerOptions)
 	if err != nil {
-		defer c.Close()
+		defer func(c *client) {
+			err := c.Close()
+			if err != nil {
+				c.log.Errorf("Close pulsar client failed: %v", err)
+			} else {
+				c.log.Info("Pulsar client closed successfully")
+			}
+		}(c)
 		c.log.Errorf("Create pulsar producer failed: %v", err)
 		return err
 	}
 	c.producer = producer
 	c.log.Info("start create encoder")
-	codec, err := codec.CreateEncoder(c.beat, c.config.Codec)
+	encoder, err := codec.CreateEncoder(c.beat, c.config.Codec)
 	if err != nil {
-		defer c.Close()
+		defer func(c *client) {
+			err := c.Close()
+			if err != nil {
+				c.log.Errorf("Close pulsar client failed: %v", err)
+			} else {
+				c.log.Info("Pulsar client closed successfully")
+			}
+		}(c)
 		c.log.Errorf("Create encoder failed: %v", err)
 		return err
 	}
-	c.codec = codec
+	c.codec = encoder
 	return nil
 }
 
@@ -99,7 +113,7 @@ func (c *client) Close() error {
 	if c.producer == nil {
 		return nil
 	}
-	c.producer.Flush()
+	_ = c.producer.Flush()
 	c.producer.Close()
 	c.producer = nil
 	if c.pulsarClient == nil {

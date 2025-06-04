@@ -97,7 +97,7 @@ func (c *pulsarConfig) Validate() error {
 	if len(c.LogLevel) > 0 {
 		_, err := LOG.ParseLevel(c.LogLevel)
 		if err != nil {
-			return errors.New("Log level is incorrect, supported log level: panic, fatal, error, warn, info, debug, trace")
+			return errors.New("log level is incorrect, supported log level: panic, fatal, error, warn, info, debug, trace")
 		}
 	}
 	if c.BulkMaxSize < 0 {
