@@ -21,6 +21,7 @@ package pulsar
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"time"
 
@@ -144,6 +145,7 @@ func (c *client) Publish(ctx context.Context, batch publisher.Batch) error {
 		c.producer.SendAsync(ctx, &pulsar.ProducerMessage{
 			EventTime:    pTime,
 			Payload:      buf,
+			Key:          fmt.Sprintf("%d", pTime.Nanosecond()),
 			DeliverAfter: 50 * time.Millisecond,
 		}, func(msgId pulsar.MessageID, prodMsg *pulsar.ProducerMessage, err error) {
 			if err != nil {
