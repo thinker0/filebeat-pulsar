@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/apache/pulsar-client-go v0.8.1-0.20220623212449-0f7041ffa908
-	github.com/elastic/beats/v7 v7.17.4
+	github.com/elastic/beats/v7 v7.17.16
 	github.com/prometheus/client_golang v1.11.1
 	github.com/prometheus/common v0.30.0
 	github.com/sirupsen/logrus v1.9.3
@@ -72,7 +72,7 @@ require (
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dop251/goja v0.0.0-20200831102558-9af81ddcf0e1 // indirect
 	github.com/dop251/goja_nodejs v0.0.0-20171011081505-adff31b136e6 // indirect
-	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/dvsekhvalnov/jose2go v0.0.0-20200901110807-248326c1351b // indirect
 	github.com/eapache/go-resiliency v1.2.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
@@ -84,19 +84,18 @@ require (
 	github.com/elastic/go-lumber v0.1.0 // indirect
 	github.com/elastic/go-seccomp-bpf v1.2.0 // indirect
 	github.com/elastic/go-structform v0.0.9 // indirect
-	github.com/elastic/go-sysinfo v1.7.1 // indirect
+	github.com/elastic/go-sysinfo v1.8.1 // indirect
 	github.com/elastic/go-txfile v0.0.7 // indirect
-	github.com/elastic/go-ucfg v0.8.3 // indirect
+	github.com/elastic/go-ucfg v0.8.6 // indirect
 	github.com/elastic/go-windows v1.0.1 // indirect
 	github.com/elastic/gosigar v0.14.2 // indirect
 	github.com/fatih/color v1.16.0 // indirect
-	github.com/frankban/quicktest v1.11.3 // indirect
 	github.com/go-logr/logr v1.3.0 // indirect
-	github.com/go-ole/go-ole v1.2.5-0.20190920104607-14974a1cf647 // indirect
+	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.2+incompatible // indirect
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gofrs/flock v0.7.2-0.20190320160742-5135e617513b // indirect
-	github.com/gofrs/uuid v3.3.0+incompatible // indirect
+	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
@@ -105,7 +104,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gomodule/redigo v1.8.3 // indirect
-	github.com/google/flatbuffers v1.12.1 // indirect
+	github.com/google/flatbuffers v23.3.3+incompatible // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/s2a-go v0.1.4 // indirect
@@ -117,15 +116,15 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
 	github.com/h2non/filetype v1.1.1 // indirect
-	github.com/hashicorp/errwrap v1.0.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-multierror v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/hashicorp/nomad/api v0.0.0-20200303134319-e31695b5bbe6 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joeshaw/multierror v0.0.0-20140124173710-69b34d4ec901 // indirect
@@ -134,17 +133,18 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/keybase/go-keychain v0.0.0-20190712205309-48d3d31d256d // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
+	github.com/kr/pretty v0.3.0 // indirect
 	github.com/linkedin/goavro/v2 v2.9.8 // indirect
-	github.com/magefile/mage v1.11.0 // indirect
+	github.com/magefile/mage v1.14.0 // indirect
 	github.com/mailru/easyjson v0.7.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-ieproxy v0.0.0-20191113090002-7c0f6868bffe // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
-	github.com/miekg/dns v1.1.25 // indirect
+	github.com/miekg/dns v1.1.41 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/mitchellh/hashstructure v0.0.0-20170116052023-ab25296c0f51 // indirect
-	github.com/mitchellh/mapstructure v1.4.1 // indirect
+	github.com/mitchellh/hashstructure v1.1.0 // indirect
+	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mtibben/percent v0.2.1 // indirect
@@ -161,7 +161,7 @@ require (
 	github.com/shirou/gopsutil v3.20.12+incompatible // indirect
 	github.com/slok/noglog v0.2.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/spf13/cobra v1.2.1 // indirect
+	github.com/spf13/cobra v1.7.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/ugorji/go/codec v1.1.8 // indirect
 	github.com/urso/diag v0.0.0-20200210123136-21b3cc8eb797 // indirect
@@ -173,13 +173,13 @@ require (
 	go.elastic.co/apm v1.11.0 // indirect
 	go.elastic.co/apm/module/apmelasticsearch v1.7.2 // indirect
 	go.elastic.co/apm/module/apmhttp v1.7.2 // indirect
-	go.elastic.co/ecszap v0.3.0 // indirect
+	go.elastic.co/ecszap v1.0.1 // indirect
 	go.elastic.co/fastjson v1.1.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/goleak v1.1.12 // indirect
-	go.uber.org/multierr v1.6.0 // indirect
-	go.uber.org/zap v1.17.0 // indirect
+	go.uber.org/multierr v1.8.0 // indirect
+	go.uber.org/zap v1.21.0 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/oauth2 v0.11.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
@@ -201,7 +201,7 @@ require (
 	gopkg.in/jcmturner/rpc.v1 v1.1.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	howett.net/plist v0.0.0-20181124034731-591f970eefbb // indirect
+	howett.net/plist v1.0.0 // indirect
 	k8s.io/api v0.22.5 // indirect
 	k8s.io/apimachinery v0.22.5 // indirect
 	k8s.io/client-go v0.22.5 // indirect
