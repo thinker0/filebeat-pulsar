@@ -199,7 +199,7 @@ func initOptions(
 	// 	producerOptions.Batching = config.Batching
 	// }
 	if config.BatchingMaxPublishDelay > 0 {
-		producerOptions.BatchingMaxPublishDelay = config.BatchingMaxPublishDelay
+		producerOptions.BatchingMaxPublishDelay = config.BatchingMaxPublishDelay * time.Millisecond
 	}
 	if config.BatchingMaxMessages > 0 {
 		producerOptions.BatchingMaxMessages = config.BatchingMaxMessages
