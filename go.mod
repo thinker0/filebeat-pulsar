@@ -1,6 +1,6 @@
 module github.com/thinker0/v2/filebeat-pulsar
 
-go 1.23
+go 1.23.0
 
 require (
 	github.com/apache/pulsar-client-go v0.8.1-0.20220623212449-0f7041ffa908
@@ -99,7 +99,7 @@ require (
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
 	github.com/golang/glog v1.1.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
