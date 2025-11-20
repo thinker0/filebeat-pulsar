@@ -1,6 +1,6 @@
 module github.com/thinker0/v2/filebeat-pulsar
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/apache/pulsar-client-go v0.13.0
@@ -12,8 +12,8 @@ require (
 	github.com/trustpilot/beat-exporter v0.1.3-0.20200612131243-82cf1b275f77
 	github.com/urfave/negroni v1.0.0
 	go.uber.org/automaxprocs v1.4.0
-	golang.org/x/net v0.38.0
-	golang.org/x/sync v0.12.0
+	golang.org/x/net v0.47.0
+	golang.org/x/sync v0.18.0
 )
 
 require (
@@ -186,13 +186,13 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/exp v0.0.0-20231127185646-65229373498e // indirect
-	golang.org/x/mod v0.21.0 // indirect
+	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/oauth2 v0.18.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/term v0.30.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/term v0.37.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/api v0.169.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
